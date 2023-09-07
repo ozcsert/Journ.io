@@ -9,13 +9,17 @@ export default  {
   theme: {
     extend: {
       colors: {
-        primary : '#57385c',
-        secondary :' #a75265',
-        third : '#ec7263',
-        fourth : '#febe7e',
+        primary : '#a75265',
+        secondary :' #57385c',
+        third : '#febe7e',
+        fourth : '#ec7263 ',
       }
     },
   },
   plugins: [],
 }
 
+//primary : '#57385c',
+//secondary :' ',
+//third : '',
+//fourth : '',
