@@ -1,19 +1,31 @@
+
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import Background from "./Components/Background";
-import SideBar from "./Components/SidebBar"
+import JournChest from "./Components/Chest";
+import SideBar from "./Components/SideBar"
 import TextInput from "./Components/TextInputField"
+import { initializeJourns } from './Reducers/journReducer';
 //import { useState, useEffect, useCallback } from "react"
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(initializeJourns())
+  }, [dispatch])
+
+
 
   return (
     
     <div className="flex">
         <main>
           <Background />
-        <SideBar />
-        <TextInput />
+          <JournChest />
+          <TextInput />
+          <SideBar />
         </main>
-      
     </div>
    
   )

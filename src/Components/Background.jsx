@@ -5,9 +5,9 @@ import { loadSlim } from "tsparticles-slim";
 const Background = (id) => {
 
 
-  const particlesLoaded = useCallback(async (container) => {
-    await console.log(container);
-  }, []);
+//  const particlesLoaded = useCallback(async (container) => {
+//    await console.log(container);
+//  }, []);
 
     const options = useMemo(() => {
         return {
@@ -79,7 +79,7 @@ const Background = (id) => {
         },
         detectRetina: true,
         }
-    })
+    }, []);
 
 
     const particlesInit = useCallback(async (engine) => {
@@ -89,7 +89,7 @@ const Background = (id) => {
 
 
   return (
-    <Particles
+    <Particles 
        id= {id} init={particlesInit} options={options}
     />
   );

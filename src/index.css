@@ -22,6 +22,8 @@ body, html {
         rounded-md shadow-md text-white bg-gray-900
         text-xs font-bold transition-all duration-100 scale-0
         origin-left;
+
+    
     }
 }
 
