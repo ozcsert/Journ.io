@@ -4,7 +4,6 @@ import store from "./store";
 const JournChest = () => {
   const journs = useSelector( state => state.journs);
 
-
   store.subscribe(() => console.log(store.getState()));
     
   if (journs === null || typeof journs === Object) {
@@ -16,7 +15,7 @@ const JournChest = () => {
   } else
 
   return (
-    <div className="relative fixed">
+    <div className="bg-black row-start-1 row-end-7  break-all  ">
       <p>{journs}</p>
     </div>
   );

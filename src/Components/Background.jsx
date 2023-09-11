@@ -24,10 +24,10 @@ const Background = (id) => {
               mode: "push",
             },
             onHover: {
-              enable: true,
+              enable: false,
               mode: "repulse",
             },
-            resize: true,
+            resize: false,
           },
           modes: {
             push: {
@@ -62,10 +62,10 @@ const Background = (id) => {
           },
           number: {
             density: {
-              enable: true,
+              enable: false,
               area: 800,
             },
-            value: 80,
+            value: 0,
           },
           opacity: {
             value: 0.5,
@@ -77,7 +77,7 @@ const Background = (id) => {
             value: { min: 1, max: 3 },
           },
         },
-        detectRetina: true,
+        detectRetina: false,
         }
     }, []);
 
