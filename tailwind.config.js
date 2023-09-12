@@ -13,6 +13,10 @@ export default  {
         secondary :' #57385c',
         third : '#febe7e',
         fourth : '#ec7263 ',
+      },
+      fontFamily: {
+        akaya: ['Akaya Teliviga'],
+        satisfy : ['Satisfy']
       }
     },
   },

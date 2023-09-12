@@ -15,7 +15,7 @@ const JournChest = () => {
   } else
 
   return (
-    <div className="bg-black row-start-1 row-end-7  break-all  ">
+    <div className="border row-start-1 row-end-7 break-all ">
       <p>{journs}</p>
     </div>
   );

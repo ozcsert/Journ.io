@@ -2,7 +2,7 @@
 
 
 // eslint-disable-next-line react/prop-types
-const SideBarIcon = ({icon, text = 'tooltip'}) => {
+const SideBarIcon = ({icon, text}) => {
     return (
     <div className= "sidebar-icon group"> 
         {icon}
