@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setJourns } from '../reducers/journReducer';
+import { setJourns } from '../../reducers/journReducer';
 
 
 const TextInput = () => {
@@ -15,13 +15,13 @@ const TextInput = () => {
   };
 
   return (
-    <div className='row-start-7 p-3   '>
+    <div className='row-start-7 p-3 '>
       <input
         type="text"
         onChange={handleChange}
-        className="flex   border border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:outline-none hover:opacity-75 "
+        className="flex border  border-gray-300 rounded transition-all duration-300 ease-in-out focus:border-blue-500 focus:outline-none hover:opacity-75 "
         //className="p-2 border-0 text-2xl font-comic-sans outline-none"
-        style={{ width: '300px' }}
+        style={{ width: '100px' }}
       />
     </div>
   );

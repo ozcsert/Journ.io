@@ -20,7 +20,9 @@ export default  {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
 
 //primary : '#57385c',

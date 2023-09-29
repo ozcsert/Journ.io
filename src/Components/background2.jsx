@@ -1,5 +1,5 @@
 
-import './styles.css'; // Import your CSS file if needed
+
 import backgroundSvg from './assets/layered-waves-background.svg';
 
 function MyComponent() {

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import store from "./store";
+import store from "../Store/store";
 
 const JournChest = () => {
   const journs = useSelector( state => state.journs);
@@ -16,7 +16,7 @@ const JournChest = () => {
 
   return (
     <div className="border row-start-1 row-end-7 break-all ">
-      <p>{journs}</p>
+      <p className="break-all">{journs}</p>
     </div>
   );
 };
