@@ -30,7 +30,7 @@ const SideBar = ( { index, hovered, onClick } ) => {
     }
 
     return (
-        <div className= "flex-col w-16 h-full rounded-r-lg  bg-fourth text-primary shadow ">
+        <div className= "flex-col w-16 h-full rounded-r-lg  bg-fourth text-primary  bg-opacity-75 ">
             {renderView()}
         </div> 
     )

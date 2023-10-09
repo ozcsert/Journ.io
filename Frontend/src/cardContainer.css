@@ -1,0 +1,47 @@
+
+
+.cardShadow {
+    box-shadow: rgb(180, 180, 219 ) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px,  10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(190, 133, 197) 20px -13px;
+  }
+
+.cardShadowonHover {  
+  box-shadow: rgb(180, 180, 219 ) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px, rgb(91, 158, 90) 10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(255, 217, 19) 20px -13px;
+  /*box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+*/
+}
+
+
+.cardBackground {
+  background-image: url(assets/Cardbackground1.jfif);
+  background-size: cover
+}
+ 
+
+ .cardSides {
+background: rgba(204,255,226,0.4);
+backdrop-filter: blur(2px);
+ }
+
+ .filter {
+  backdrop-filter: blur(1px);
+ }
+
+ .cardSides2 {
+  background: radial-gradient(circle, rgba(222,199,177,0.7931547619047619) 0%, rgba(255,255,255,1) 100%);
+   }
+
+
+ .corner {
+    clip-path: ellipse(70% 25% at 50% 100%);
+    background: radial-gradient( rgba(222,199,177,0.7931547619047619) 0%, rgba(255,255,255,1) 100%);
+   
+ }
+ /*-webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, transparent 100%, black 0%); */
+
+
+.cardBlur {
+  backdrop-filter: blur(2px);
+  background-color: rgba(204,255,226,0.4);
+}
+
+-webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 180%, transparent 100%, black 0%);

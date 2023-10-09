@@ -7,7 +7,10 @@ import SideBar from './Card/SideBar';
 import '../styles.css'
 import { setHoveredCard } from '../reducers/hoveredReducer';
 import debounce from 'lodash/debounce';
+import '../cardContainer.css'
 
+
+//import backgroundSvg from '../assets/layered-waves-dense.svg';
 const CardContainer = () => {
   const JournCards = useSelector((state) => state.journCards);
   //const hoveredCard = useSelector((state) => state.hoveredCard);
@@ -109,19 +112,21 @@ const handleMouseEnter =  (event, index) => {
       </div>
     </main>
     <aside
-      className="col-start-5 rounded-r-lg bg-white"
+      className="col-start-5 rounded-r-lg"
     >
-      <SideBar/>
+      
     </aside>
   </div>
     )
   }
 
+
+
   return (
     <div className=" ml-10 mt-10 ">
       <div className="text-left">12, Sept  hovered{hovered}  lasthovered{lastHovered} current{currentHovered} </div>
       <div className=" flex p-2  h-full overflow-x-auto scrollbar-hide ">
-        <div className="flex flex-nowrap items-start ml-5 mr-10 ">
+        <div className="flex  flex-nowrap items-start ml-5 mr-10 ">
           
           {JournCards.map((card, index) => {
             
@@ -131,35 +136,41 @@ const handleMouseEnter =  (event, index) => {
               zIndex: JournCards.length - index,
             };
 
+            const boxShadow = {
+              boxShadow: 'rgb(180, 180, 219) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px, rgb(91, 158, 90) 10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(255, 217, 19) 20px -13px',
+            };
+
             const hoveredStyle = () => {
               if (hovered !== null & hovered === index) {
                 return `transform transition-transform duration-300 absolute
                 translate-x-[30px] skew-y-[0deg] skew-x-[2deg] scale-150 `
               } else if (hovered !== null) {
                 const translateX = index > hovered ? 'translate-x-0' : 'translate-x-[-150px]';
-                return `transition-transform duration-500 ${translateX} skew-y-[15deg] -mr-[80px] skew-x-[2deg]`;
+                return `transition-transform duration-500 ${translateX} skew-y-[15deg] -mr-[80px] skew-x-[2deg]   `;
               } else if (hovered === null) {
-                return `transition-transform duration-500 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg]  `;
+                return `transition-transform duration-500 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `;
               }
               else if ( hovered !== null & hovered !==index ) {
-                return 'transition-transform duration-1000 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] '
+                return `transition-transform duration-1000 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `
               } 
             }
 
             return (
             <>
             {hovered === index && <SpawnPlaceHolder hoveredPosition={hoveredPosition} />}
+            
             <div
               key={index}
-              className={`flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m  border-black
-              bg-third text-primary shadow  ${hoveredStyle()}`}
-              style= {hoveredPosition}
+              className={` flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m border-black
+              bg-third text-primary bg-opacity-75 ${hoveredStyle()}`}
+              
+              style= {{...hoveredPosition}}
               //onMouseEnter={(event) => calculateCardPosition(event)}
               
               onMouseLeave={() => handleMouseLeave()}
              // onMouseLeave={handleMouseLeave}
             >
-              <main className='grid col-start-1 grid-cols-1 grid-rows-6'>
+              <main className='grid col-start-1 grid-cols-1 grid-rows-6 rounded-xl bg-third text-primary bg-opacity-75 '>
                 {/* Replace <p> with an editable <div> */}
                 <div
                   className="w-24 h-full p-2 "
@@ -175,7 +186,7 @@ const handleMouseEnter =  (event, index) => {
                 </div>
               </main>
               <aside
-                className="col-start-5 rounded-r-lg bg-white"
+                className=" col-start-5 rounded-r-lg"
                 onMouseEnter={(event) => handleMouseEnter(event, index)}
                 //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
                 
@@ -183,7 +194,23 @@ const handleMouseEnter =  (event, index) => {
               >
                 <SideBar index={index} hovered={hovered} onClick={activateSlider} />
               </aside>
-            </div>
+            <div className=" absolute h-48 w-36 cardBackground rounded-xl  ml-5 -z-10 -translate-y-3 bg-[rgba(173, 216, 230, 0.7)] backdrop-blur-xl"></div>
+            <div className="absolute cardBlur h-3 w-[125px]  -translate-y-3 ml-5 -skew-x-[60deg]"></div>
+
+            <div className="absolute corner h-[50px] w-[25px] -translate-y-[10px] translate-x-[138px]  -skew-x-[60deg] skew-y-[20deg]"></div>
+
+            <div className="absolute cardBlur h-3 w-[125px]  translate-y-[180px] ml-5  -skew-x-[60deg] -z-10"></div>
+
+            
+
+            <div className="absolute cardBlur w-5 h-[170px] translate-x-[144px] translate-y-[3px] -skew-y-[30deg] "></div>
+            <div className="absolute cardBlur w-5 h-[170px] translate-y-[3px] -skew-y-[30deg] -z-10 "></div>
+            <div className="absolute corner h-[70px] w-[25px] -translate-y-[64px] translate-x-[185px]  -skew-x-[60deg] skew-y-[20deg]"></div>
+            
+
+           </div>
+            
+            
             </>
           )
           })}
@@ -204,3 +231,9 @@ const handleMouseEnter =  (event, index) => {
 };
 
 export default CardContainer;
+
+
+
+//<div className="  absolute cardSides w-5 h-[15px] rounded-bl-xl border-l-2 border-w-[20px] border-b-2 translate-x-[126px] -translate-y-[2px] border-black rotate-180 "></div>
+//<div className="absolute cardSides h-[15px] w-5 rounded-tr-[10px]  border-black -mt-50 -ml-150 translate-x-[30px]"></div>
+

@@ -8,7 +8,7 @@ import TextInput from './Card/TextInputField'
 import SideBar from './Card/SideBar'
 import JournCard from './Journ';
 import JournCardSmall from './JournSmall';
-
+import '../cardContainer.css'
 
 const AppPage = () => {
 
@@ -19,6 +19,7 @@ const AppPage = () => {
       <div className="flex grid grid-cols-2 grid-rows-6 ">
       <CardContainer />
 
+</div>
       </div>
         
         
