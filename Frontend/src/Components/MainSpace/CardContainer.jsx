@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import JournCard from './Journ';
-import JournChest from './Card/Chest';
-import TextInput from './Card/TextInputField';
-import SideBar from './Card/SideBar';
-import '../styles.css'
-import { setHoveredCard } from '../reducers/hoveredReducer';
+import JournCard from '../Journ';
+import JournChest from '../Card/Chest';
+import TextInput from '../Card/TextInputField';
+import SideBar from '../Card/SideBar';
+import "../../styles.css"
+
+
+import { setHoveredCard } from '../../reducers/hoveredReducer';
 import debounce from 'lodash/debounce';
-import '../cardContainer.css'
+import '../../cardContainer.css'
 
 
 //import backgroundSvg from '../assets/layered-waves-dense.svg';
@@ -96,6 +98,7 @@ const handleMouseEnter =  (event, index) => {
     };
 
     return (
+      <div className="col-span-4 row-span-4 col-start-2 row-start-2" >
     <div
     key={hovered}
     className={`flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-2xl border-black
@@ -117,13 +120,14 @@ const handleMouseEnter =  (event, index) => {
       
     </aside>
   </div>
+  </div>
     )
   }
 
 
 
   return (
-    <div className=" ml-10 mt-10 ">
+    <div className=" ml-10 mt-10 h-80 ">
       <div className="text-left">12, Sept  hovered{hovered}  lasthovered{lastHovered} current{currentHovered} </div>
       <div className=" flex p-2  h-full overflow-x-auto scrollbar-hide ">
         <div className="flex  flex-nowrap items-start ml-5 mr-10 ">
