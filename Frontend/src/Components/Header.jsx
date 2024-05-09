@@ -2,7 +2,7 @@ import DropdownMenu from "./dropdown";
 
 const Header = () => {
   return (
-    <header className="bg-transparent bg-white rounded-xl w-3/4  m-auto   ">
+    <header className="bg-transparent bg-black rounded-xl w-3/4  m-auto   ">
       <div className="container mx-auto py-3 flex   justify-center " > {/* Center the header */}
         <div className="flex items-center flex-grow-0 flex-shrink-0" style={{ flexBasis: '80%' }}> {/* Align items to center */}
           <img

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { initializeJournCards } from "./reducers/journCardReducer";
 //import { useState, useEffect, useCallback } from "react"
 
+
 function App() {
 
   const dispatch = useDispatch()
@@ -21,11 +22,13 @@ function App() {
 
   return (
     <div className='overflow-hidden'>
+       
       <Router>
         <Routes>
           <Route path='/' element={<AppPage />} />
         </Routes>
       </Router>
+      
     </div>
   )
 }

@@ -10,12 +10,12 @@ import CardContainer from './MainSpace/CardContainer';
 //import JournCardSmall from './JournSmall';
 import '../cardContainer.css'
 import MainDesktop from './MainDesktop';
-
+import backgroundImage from '../assets/image-(4).png'
 
 const AppPage = () => {
 
   return (
-    <div className=" h-screen w-screens bg-gradient-to-b from-slate-800 to-grey-900 bg-cover "
+    <div className=" h-screen w-screens bg-[url('/src/assets/image-(7).png')] bg-cover " 
      >
       
       
