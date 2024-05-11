@@ -9,6 +9,48 @@ body, html {
   
 
 @layer components {
+    .tiptap > * + * {
+        @apply mt-3;
+    }
+
+    .tiptap ul,
+    .tiptap ol {
+        @apply px-4;
+    }
+
+    .tiptap h1,
+    .tiptap h2,
+    .tiptap h3,
+    .tiptap h4,
+    .tiptap h5,
+    .tiptap h6 {
+        @apply leading-tight;
+    }
+
+    .tiptap code {
+        @apply bg-opacity-10 text-gray-600;
+    }
+
+    .tiptap pre {
+        @apply bg-black text-white py-3 px-4 rounded-md;
+        font-family: 'JetBrainsMono', monospace;
+    }
+
+    .tiptap pre code {
+        @apply text-current py-0 bg-none text-sm;
+    }
+
+    .tiptap img {
+        @apply max-w-full h-auto;
+    }
+
+    .tiptap blockquote {
+        @apply pl-4 border-l-2 border-opacity-10;
+    }
+
+    .tiptap hr {
+        @apply border-none border-t-2 border-opacity-10 my-8;
+    }
 
     .sidebar-icon {
         @apply relative flex items-center justify-center 
@@ -22,6 +64,14 @@ body, html {
         rounded-md shadow-md text-white bg-gray-900
         text-xs font-bold transition-all duration-100 scale-0
         origin-left;
+
+    
+    }
+
+    .text-editor-icon {
+        @apply  
+        rounded-md shadow-md hover:bg-white 
+        ;
 
     
     }

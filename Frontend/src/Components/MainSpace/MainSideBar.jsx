@@ -2,8 +2,7 @@
 import { useState } from "react";
 import SideBarIcon from "../Card/SideBarIcon"
 
-import TextField from "@mui/material/TextField";
-
+import TextEditor from "../TextEditor";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 const MainSideBar = ( onClick ) => {
@@ -27,7 +26,7 @@ const [textArea, setTextArea] = useState(false)
             } else if (textArea === true) {
                 return (
                     <div className="row-span-5 rounded-xl " >
-                        <TextField />
+                        <TextEditor />
                     
                     </div>
                 ) 
