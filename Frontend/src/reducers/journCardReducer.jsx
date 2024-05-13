@@ -25,7 +25,13 @@ export const initializeJournCards = () => {
   }
 }
 
-
+//export const createQuote = content => {
+//  return async dispatch => {
+//    console.log(content);
+//    const newAnecdote = await JournCardServices.createNew(content)
+//    dispatch(appendAnecdote(newAnecdote))
+//  }
+//}
 
 
 

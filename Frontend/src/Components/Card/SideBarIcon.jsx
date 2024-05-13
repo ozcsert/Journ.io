@@ -2,11 +2,11 @@
 
 
 // eslint-disable-next-line react/prop-types
-const SideBarIcon = ({icon, text, onClick }) => {
+const SideBarIcon = ({icon, text, onClick, className, classNameText }) => {
     return (
-    <div className= "sidebar-icon group" onClick={onClick}> 
+    <div className = {className} onClick={onClick}> 
         {icon}
-        <span className="sidebar-tooltip group-hover:scale-100" >
+        <span className = {classNameText} >
             {text}
         </span>
     </div>

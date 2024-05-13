@@ -7,23 +7,23 @@ import { FaGripLinesVertical } from 'react-icons/fa';
 import { PiArrowFatLinesRightBold } from 'react-icons/pi';
 
 
-const SideBar = ( { index, hovered, onClick } ) => {
+const SideBar = ( { index, hovered, onClick, className, classNameText } ) => {
 
     const renderView = () => {
         if (hovered === index) {
             return (
                 <div>
-                <SideBarIcon icon={<FaTrash size="28" />} text="Delete Journ"/>
-                <SideBarIcon icon={<PiArrowFatLinesRightBold size="28" />} onClick={onClick} text="Slide right"/>
-                <SideBarIcon icon={<HiMiniRectangleStack size="28" />}/>
-                <SideBarIcon icon={<HiPhotograph size="28" />} text="Add an image"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaTrash size="28" />} text="Delete Journ"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} onClick={onClick} text="Slide right"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiMiniRectangleStack size="28" />}/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiPhotograph size="28" />} text="Add an image"/>
                 </div>
             )
         }
         return (
             <div>
-                <SideBarIcon icon={<FaGripLinesVertical size="28" />} text="Add an image"/>
-                <SideBarIcon icon={<PiArrowFatLinesRightBold size="28" />} text="Add an image"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaGripLinesVertical size="28" />} text="Add an image"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} text="Add an image"/>
             </div>
         )
     }

@@ -9,22 +9,18 @@ body, html {
   
 
 @layer components {
-    .tiptap > * + * {
-        @apply mt-3;
+
+    .editorIcon {
+        @apply  px-3 py-2 border border-white text-white first-letter:font-sans hover:bg-white  hover:text-purple-500  ;
     }
 
     .tiptap ul,
-    .tiptap ol {
-        @apply px-4;
+    .tiptap ol{
+        @apply px-4  list-disc  ;
     }
 
-    .tiptap h1,
-    .tiptap h2,
-    .tiptap h3,
-    .tiptap h4,
-    .tiptap h5,
-    .tiptap h6 {
-        @apply leading-tight;
+    .active {
+        @apply bg-white text-black ;
     }
 
     .tiptap code {
@@ -37,7 +33,7 @@ body, html {
     }
 
     .tiptap pre code {
-        @apply text-current py-0 bg-none text-sm;
+        @apply text-current py-0 bg-none text-sm ;
     }
 
     .tiptap img {

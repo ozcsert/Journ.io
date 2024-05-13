@@ -70,18 +70,18 @@ const MenuBar = () => {
               .toggleBold()
               .run()
           }
-          className={ editor.isActive('bold') ? 'is-active' : 'text-editor-icon'} >Bold
+          className={ editor.isActive('bold') ? 'is-active' : ''} >Bold
         </CustomButton>
         
-        <CustomButton onClick={() => editor.chain().focus().toggleStrike().run()}
-          disabled={
-            !editor.can()
-              .chain()
-              .focus()
-              .toggleStrike()
-              .run()
-          }
-          className={editor.isActive('strike') ? 'is-active' : ''}>Italic</CustomButton>
+        <CustomButton onClick={() => editor.chain().focus().toggleItalic().run()}
+        disabled={
+          !editor.can()
+            .chain()
+            .focus()
+            .toggleItalic()
+            .run()
+        }
+        className={editor.isActive('italic') ? 'is-active' : ''}>Italic</CustomButton>
         
 
         
@@ -98,7 +98,7 @@ const MenuBar = () => {
         <CustomButton  onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive('blockquote') ? 'is-active' : ''} >quote</CustomButton>
         
-                  <CustomButton           onClick={() => editor.chain().focus().toggleBulletList().run()}
+        <CustomButton  onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive('bulletList') ? 'is-active' : ''} >BulletList</CustomButton>
 
       
@@ -107,9 +107,6 @@ const MenuBar = () => {
   }
   
 
-  
-
-  
 
 const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -117,7 +114,7 @@ const extensions = [
     StarterKit.configure({
       bulletList: {
         keepMarks: true,
-        keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        keepAttributes: true, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
       },
       orderedList: {
         keepMarks: true,
@@ -127,7 +124,15 @@ const extensions = [
   ]
 
 
-  const content = '<p>Hello World!</p>'
+  const content= `
+        <p>
+          The focus extension adds a class to the focused node only. That enables you to add a custom styling to just that node. By default, it’ll add <code>.has-focus</code>, even to nested nodes.
+        </p>
+        <ul>
+          <li>Nested elements (like this list item) will be focused with the default setting of <code>mode: all</code>.</li>
+          <li>Otherwise the whole list will get the focus class, even when just a single list item is selected.</li>
+        </ul>
+      `
 
 
   

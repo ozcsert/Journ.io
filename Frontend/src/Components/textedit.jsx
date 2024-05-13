@@ -1,4 +1,4 @@
-
+import '../styles2.css'
 
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
