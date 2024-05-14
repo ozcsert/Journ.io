@@ -72,7 +72,7 @@ const MenuBar = () => {
           }
           className={ editor.isActive('bold') ? 'is-active' : ''} >Bold
         </CustomButton>
-        
+          
         <CustomButton onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={
           !editor.can()

@@ -41,7 +41,12 @@ const [textArea, setTextArea] = useState(false)
                         <NewTextEditor />
                         <div >
                             <Fab color="primary" aria-label="add">
-                                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<IoIosAddCircleOutline size="28" />} onClick={HandleAddJourn} text="Done"/>
+                                <SideBarIcon 
+                                className={"sidebar-icon"} 
+                                classNameText={"sidebar-tooltip"} 
+                                icon={<IoIosAddCircleOutline size="28" />} 
+                                onClick={HandleAddJourn} 
+                                text="Done"/>
                             </Fab>
                         </div>
                     </div>
