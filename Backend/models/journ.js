@@ -3,11 +3,15 @@ const mongoose = require("mongoose")
 const journSchema = new mongoose.Schema({
   title: { 
     type: String,
-    required:true
+    required:false
   },
   journ: {
     type: String,
-    required: true
+    required: false
+  },
+  date: {
+    type: String,
+    required : false
   }
 })
 

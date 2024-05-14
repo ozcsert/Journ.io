@@ -3,7 +3,20 @@ const express = require('express')
 const app = express()
 const mongoose = require("mongoose")
 mongoose.set("strictQuery", false)
-const { info, add } = require('./mongo');
+//const { info, add } = require('./mongo');
+const http = require('http')
+const journRouter = require("./controllers/journs")
+
+
+//app.get('/', (request, response) => {
+//  response.send('<h1>Hello World!</h1>')
+//})
+//
+//app.get('/journs', (request, response) => {
+//  response.send('journs')
+//})
+
+
 
 mongoose.connect(config.MONGODB_URI)
   .then(() => {
@@ -12,6 +25,10 @@ mongoose.connect(config.MONGODB_URI)
   .catch((error) => {
     console.log("error connection to mongo" , error.message)
   })
+
+
+  app.use("/api/journs", journRouter)
+
 
 
 module.exports = app

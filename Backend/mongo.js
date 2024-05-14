@@ -3,20 +3,18 @@ const mongoose = require('mongoose')
 const password = process.argv[2]
 const Journ = require('./models/journ')
 
-
 const url = 
-
 `mongodb+srv://ozcsert1:${password}@cluster25021994.musbupe.mongodb.net/Journio?retryWrites=true&w=majority`
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
-
 
 const argv = process.argv
 
 const journCreate = (argv3, argv4) => {
     const journ = new Journ({
       title: argv3,
-      journ: argv4
+      journ: argv4,
+      date: new Date()
     })
 
     console.log(journ);
@@ -38,7 +36,6 @@ const info = () => {
     )
   }
 
-
 //saves new data to the target db
 //run node mongo ${"name"} ${number}
 const add = () => {
@@ -47,12 +44,10 @@ const add = () => {
       mongoose.connection.close()
     })}
 
-
 if (argv.length === 3 && argv[2] === password) {
   return info()
 } else {
   return add()
 }
 
-
-module.exports = {add, info}
+module.exports = {info}
