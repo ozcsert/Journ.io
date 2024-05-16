@@ -14,7 +14,6 @@ journRouter.get("/", async (request, response, next) => {
     }
 })
 
-
 journRouter.get("/:id", async (request, response, next) => {
 
   try {
@@ -22,7 +21,7 @@ journRouter.get("/:id", async (request, response, next) => {
     response.json(journ) 
     } catch (exception) {
       next (exception)
-    }
+    } 
   })
 
 const constructJourn =  (title, journ, next) => {
@@ -70,5 +69,27 @@ journRouter.put("/:id", async (request, response, next) => {
     next (exception)
   }
 })
+
+journRouter.delete('/:id', async (request, response, next) => {
+
+  try {
+
+    const journToDelete = await Journ.findByIdAndDelete(request.params.id)
+    
+    if ( journToDelete !== null ) {
+      response.status(204).end()
+    logger.info(`${journToDelete} is succesfully deleted`)
+    
+    } else if (journToDelete == null) {
+      response.status(404).end()
+      logger.info(`It's already gone babe. Not on the elemental chart.`)
+    }
+  }catch (exception) {
+    next (exception)
+  }
+})
+
+
+
 
 module.exports = journRouter
