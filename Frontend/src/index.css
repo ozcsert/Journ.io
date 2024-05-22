@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+    margin: 0;
+    padding: 0;
+  }
+  
+
+@layer components {
+
+    .editorIcon {
+        @apply  px-3 py-2 border border-white text-white first-letter:font-sans hover:bg-white  hover:text-purple-500  ;
+    }
+
+    .tiptap ul,
+    .tiptap ol{
+        @apply px-4  list-disc  ;
+    }
+
+    .active {
+        @apply bg-white text-black ;
+    }
+
+    .tiptap code {
+        @apply bg-opacity-10 text-gray-600;
+    }
+
+    .tiptap pre {
+        @apply bg-black text-white py-3 px-4 rounded-md;
+        font-family: 'JetBrainsMono', monospace;
+    }
+
+    .tiptap pre code {
+        @apply text-current py-0 bg-none text-sm ;
+    }
+
+    .tiptap img {
+        @apply max-w-full h-auto;
+    }
+
+    .tiptap blockquote {
+        @apply pl-4 border-l-2 border-opacity-10;
+    }
+
+    .tiptap hr {
+        @apply border-none border-t-2 border-opacity-10 my-8;
+    }
+
+    .sidebar-icon {
+        @apply relative flex items-center justify-center 
+        h-12 w-12 mx-auto hover:bg-third 
+        rounded-3xl hover:rounded-xl
+        transition-all duration-300 ease-in-out
+
+    } 
+    .sidebar-tooltip {
+        @apply absolute w-auto p-2 m-2 min-w-max left-14 
+        rounded-md shadow-md text-white bg-gray-900
+        text-xs font-bold transition-all duration-100 scale-0
+        origin-left;
+
+    
+    }
+
+    .text-editor-icon {
+        @apply  
+        rounded-md shadow-md hover:bg-white 
+        ;
+
+    
+    }
+}
+
+
