@@ -62,10 +62,8 @@ const CustomButton = styled(Button)({
     },
   });
 
-const NewTextEditor = () => {
-  const [editorContent, setEditorContent] = useState('');
-
-
+const NewTextEditor = ( { onEditorContentChange } ) => {
+ // const [editorContent, setEditorContent] = useState('');
 
   const editor = useEditor({
     extensions: [
@@ -84,10 +82,15 @@ const NewTextEditor = () => {
       <p>Audrey Hepburn</p>
     `,
     onUpdate: ({ editor }) => {
-      const JournContent = editor.getText()
-      setEditorContent(JournContent)
-      console.log(JournContent);
-      // send the content to an API here
+      const JournContent = editor.getHTML()
+      const journObjectToAdd = {
+        title : "",
+        journ : JournContent, 
+
+      }
+      //setEditorContent(JournContent)
+      console.log(journObjectToAdd);
+      onEditorContentChange(journObjectToAdd)
     },
   })
 

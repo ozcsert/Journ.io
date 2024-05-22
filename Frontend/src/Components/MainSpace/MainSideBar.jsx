@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { createJourn } from '../../reducers/journCardReducer'
+import { useDispatch } from 'react-redux'
 import SideBarIcon from "../Card/SideBarIcon"
 
 import TextEditor from "../TextEditor";
@@ -8,25 +10,28 @@ import NewTextEditor from "../NewTextEditor";
 
 import Fab from '@mui/material/Fab';
 
+const MainSideBar = ( onClick  ) => {
+    const dispatch = useDispatch()
+    const [text, setText] = useState(null)
+    const [textArea, setTextArea] = useState(false)
+    const [editorContent, setEditorContent] = useState("");
 
-
-const MainSideBar = ( onClick ) => {
-const [text, setText] = useState(null)
-const [textArea, setTextArea] = useState(false)
-    
     const handleCreateTextArea =  () => {
         console.log("text area activated");
-        console.log(text);
         setTextArea(true)
         } 
 
-        const HandleAddJourn =  () => {
-            console.log("journ added");
-            console.log(text);
+    const handleEditorContentChange = (journObjectToAdd) => {
+        setEditorContent(journObjectToAdd)
+        console.log(editorContent);
+    }
+
+    const HandleAddJourn = async  () => {
+        console.log(editorContent);
+            
+            await dispatch(createJourn(editorContent))
             setTextArea(false)
-            } 
-
-
+        } 
         
         const renderView = () => {
             if (textArea === false)  { 
@@ -38,7 +43,7 @@ const [textArea, setTextArea] = useState(false)
             } else if (textArea === true) {
                 return (
                     <div className="row-span-5 rounded-xl" >
-                        <NewTextEditor />
+                        <NewTextEditor onEditorContentChange={handleEditorContentChange} />
                         <div >
                             <Fab color="primary" aria-label="add">
                                 <SideBarIcon 
@@ -53,18 +58,12 @@ const [textArea, setTextArea] = useState(false)
                 ) 
         }
     }
-
     return (
         <div>
         {renderView()}
         </div>
         
     )
-
-
 }
-
-
-
 
 export default MainSideBar

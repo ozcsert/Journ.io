@@ -6,11 +6,9 @@ import TextInput from '../Card/TextInputField';
 import SideBar from '../Card/SideBar';
 import "../../styles.css"
 
-
 import { setHoveredCard } from '../../reducers/hoveredReducer';
 import debounce from 'lodash/debounce';
 import '../../cardContainer.css'
-
 
 //import backgroundSvg from '../assets/layered-waves-dense.svg';
 const CardContainer = () => {
@@ -186,7 +184,8 @@ const handleMouseEnter =  (event, index) => {
                     // Example: dispatch an action to update the content in Redux
                   }}
                 >
-                  {card.title}
+                  {card.journ}
+                  {card.date}
                 </div>
               </main>
               <aside

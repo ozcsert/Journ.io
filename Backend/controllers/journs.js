@@ -37,11 +37,15 @@ const constructJourn =  (title, journ, next) => {
     }
     } 
 
+
+
+
 journRouter.post('/', async (request, response, next) => {
 
   try {  
-    console.log(request.body);
+    console.log( "line 43" + request);
     const journToBeSaved = await constructJourn(request.body.title, request.body.journ); 
+    console.log("line 45" + journToBeSaved);
     const savedJourn = await journToBeSaved.save()
     response.status(200).json(savedJourn);
     logger.info(`added ${savedJourn} to db`)
@@ -49,6 +53,10 @@ journRouter.post('/', async (request, response, next) => {
     next(exception)
 }
 })
+
+
+
+
 
 journRouter.put("/:id", async (request, response, next) => {
   const body = request.body
