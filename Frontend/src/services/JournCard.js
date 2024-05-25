@@ -17,7 +17,20 @@ const createNew = async (content) => {
 }
 
 
+const remove = async (journ) => {
 
+    try {
+
+    
+    const response = await axios.delete(`${baseUrl}/${journ}`, journ)
+    console.log("Journ Deleted")
+    return  response.data 
+    
+    } catch (error) {
+        console.log("It's already gone baby, not on the elemental chart");
+       // console.error("An error occurred:", error);
+    } 
+  }
 
 
 //const createNew = async (content) => {
@@ -34,4 +47,4 @@ const createNew = async (content) => {
 //    return  response.data
 //  }
 
-export default {getAll, createNew}  
+export default {getAll, createNew, remove}  

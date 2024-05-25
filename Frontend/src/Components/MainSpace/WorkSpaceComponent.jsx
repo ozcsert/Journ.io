@@ -2,10 +2,6 @@
 import CardContainer from "./CardContainer"
 import MainSideBar from "./MainSideBar"
 
-
-//bg-gradient-to-r from-primary to-eleventh
-
-
 const WorkspaceComponent = () => {
 
     return (
@@ -28,7 +24,6 @@ const WorkspaceComponent = () => {
             
         </div>
     )
-
 
 }
 

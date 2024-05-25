@@ -7,14 +7,18 @@ import { FaGripLinesVertical } from 'react-icons/fa';
 import { PiArrowFatLinesRightBold } from 'react-icons/pi';
 
 
-const SideBar = ( { index, hovered, onClick, className, classNameText } ) => {
+const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText } ) => {
+
+
+
+
 
     const renderView = () => {
         if (hovered === index) {
             return (
                 <div>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaTrash size="28" />} text="Delete Journ"/>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} onClick={onClick} text="Slide right"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaTrash size="28" />} onClick={onClick2} text="Delete Journ"/>
+                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} onClick={onClick1} text="Slide right"/>
                 <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiMiniRectangleStack size="28" />}/>
                 <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiPhotograph size="28" />} text="Add an image"/>
                 </div>

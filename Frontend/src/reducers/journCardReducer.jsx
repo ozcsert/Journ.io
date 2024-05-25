@@ -1,9 +1,8 @@
 import {  createSlice } from "@reduxjs/toolkit";
 import JournCardServices from '../services/JournCard'
-
+import JournChest from "../Components/Card/Chest";
 
 const initialState = []
-
 
 const journCardValueSlice = createSlice({
   name: 'journCards',
@@ -15,7 +14,17 @@ const journCardValueSlice = createSlice({
     appendJournCard(state, action) {
       state.push(action.payload)
     },
-  },
+//    deleteJournCard(state, action) {
+//      return state.filter(element => element._id !== action.payload._id);
+//    },
+    deleteJournCard(state, action) {
+      
+      const index = state.findIndex(card => card._id === action.payload._id);
+      console.log(action.payload);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+  }}
 });
 
 export const initializeJournCards = () => {
@@ -34,6 +43,26 @@ export const createJourn = content => {
   }
 }
 
+export const deleteJourn =  journ => {
+  return async dispatch => {
+    console.log("createJournReducer triggered with the" + journ._id);
+    //const journToDelete = journs.find(a => a.id === journ.id)
+    const request = await JournCardServices.remove(journ._id)
+    console.log(request);
+    dispatch(deleteJournCard(journ))
+  }
+}
+
+//
+//
+//export const deleteJourn = content => {
+// // return async dispatch => {
+// //   console.log("deleteJournReducer triggered with the" + content.journ);
+// //   const newJourn = await JournCardServices.deleteJourn(content)
+// //   dispatch(deleteJournCard(newJourn))
+//  }
+//}
+
 //export const createQuote = content => {
 //  return async dispatch => {
 //    console.log(content);
@@ -44,5 +73,5 @@ export const createJourn = content => {
 
 
 
-export const { setJournCards, appendJournCard } = journCardValueSlice.actions;
+export const { setJournCards, appendJournCard, deleteJournCard } = journCardValueSlice.actions;
 export default journCardValueSlice.reducer
