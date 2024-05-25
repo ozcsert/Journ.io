@@ -78,6 +78,7 @@ journRouter.put("/:id", async (request, response, next) => {
   }
 })
 
+
 journRouter.delete('/:id', async (request, response, next) => {
 
   try {
