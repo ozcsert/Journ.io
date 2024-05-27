@@ -14,6 +14,10 @@ body, html {
         @apply  px-3 py-2 border border-white text-white first-letter:font-sans hover:bg-white  hover:text-purple-500  ;
     }
 
+    .bubbleEditorIcon {
+        @apply  px-1 py-1 border border-white text-white first-letter:font-sans hover:bg-white  hover:text-purple-500  ;
+    }
+
     .tiptap ul,
     .tiptap ol{
         @apply px-4  list-disc  ;

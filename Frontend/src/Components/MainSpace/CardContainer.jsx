@@ -4,6 +4,8 @@ import SideBar from '../Card/SideBar';
 import "../../styles.css"
 import { deleteJourn } from '../../reducers/journCardReducer'
 import '../../cardContainer.css'
+import NewTextEditor from '../NewTextEditor';
+import UpdateTextEditor from '../Card/UpdateTextEditor';
 
 //import backgroundSvg from '../assets/layered-waves-dense.svg';
 const CardContainer = () => {
@@ -52,27 +54,24 @@ const CardContainer = () => {
         :
         setHovered(index);
         console.log("hovered is " + hovered);
-
         setLastHovered(currentHovered)
         console.log(x);
       } 
   };
 
   const activateSlider = () => {
-    setSliderActive(!sliderActive)
+      setSliderActive(!sliderActive)
     
-  }
+  } 
 
   const HandleDeleteJourn = async (card) => {
       const cardToDelete = await JournCards.find(a => a.id === card.id)
-      
       dispatch(deleteJourn(cardToDelete))
   }
 
   const SpawnPlaceHolder = () => {
-
-    const zIndex = {
-      zIndex: JournCards.length - hovered,
+      const zIndex = {
+        zIndex: JournCards.length - hovered,
     };
 
     return (
@@ -161,20 +160,21 @@ const CardContainer = () => {
                     // Example: dispatch an action to update the content in Redux
                   }}
                 >
+                  <UpdateTextEditor />
                   {card.journ}
                   {card.date}
                   
                 </div>
               </main>
-              <aside
-                className=" col-start-5 rounded-r-lg"
-                onMouseEnter={(event) => handleMouseEnter(event, index)}
-                //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
-                
-                 // Unset the hovered card
-              >
-                <SideBar index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
-              </aside>
+            <aside
+              className=" col-start-5 rounded-r-lg"
+              onMouseEnter={(event) => handleMouseEnter(event, index)}
+              //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
+              
+               // Unset the hovered card
+            >
+              <SideBar index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
+            </aside>
             <div className=" absolute h-48 w-36 cardBackground rounded-xl  ml-5 -z-10 -translate-y-3 bg-[rgba(173, 216, 230, 0.7)] backdrop-blur-xl"></div>
             <div className="absolute cardBlur h-3 w-[125px]  -translate-y-3 ml-5 -skew-x-[60deg]"></div>
             

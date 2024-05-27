@@ -31,9 +31,9 @@ const MainSideBar = ( onClick  ) => {
             
             await dispatch(createJourn(editorContent))
             setTextArea(false)
-        } 
+    } 
         
-        const renderView = () => {
+    const renderView = () => {
             if (textArea === false)  { 
                 return ( 
                     <div className="row-span-5 rounded-xl mt-40" >

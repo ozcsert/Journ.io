@@ -9,10 +9,6 @@ import { PiArrowFatLinesRightBold } from 'react-icons/pi';
 
 const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText } ) => {
 
-
-
-
-
     const renderView = () => {
         if (hovered === index) {
             return (
