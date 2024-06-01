@@ -7,29 +7,30 @@ import { FaGripLinesVertical } from 'react-icons/fa';
 import { PiArrowFatLinesRightBold } from 'react-icons/pi';
 
 
-const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText } ) => {
+const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText, sidebarsize } ) => {
+    //const sidebarsize = 12
+    const iconsize = sidebarsize*2
 
     const renderView = () => {
         if (hovered === index) {
             return (
                 <div>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaTrash size="28" />} onClick={onClick2} text="Delete Journ"/>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} onClick={onClick1} text="Slide right"/>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiMiniRectangleStack size="28" />}/>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<HiPhotograph size="28" />} text="Add an image"/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<FaTrash />} onClick={onClick2} text="Delete Journ"/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold />} onClick={onClick1} text="Slide right"/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<HiMiniRectangleStack />}/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<HiPhotograph  />} text="Add an image"/>
                 </div>
             )
         }
         return (
             <div>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<FaGripLinesVertical size="28" />} text="Add an image"/>
-                <SideBarIcon className={"sidebar-icon"} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold size="28" />} text="Add an image"/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<FaGripLinesVertical  />} text="Add an image"/>
+                <SideBarIcon className={`sidebar-icon transform-size size-${iconsize}`} classNameText={"sidebar-tooltip"} icon={<PiArrowFatLinesRightBold  />} text="Add an image"/>
             </div>
         )
     }
-
     return (
-        <div className= "flex-col w-16 h-full rounded-r-lg  bg-white text-primary  bg-opacity-75 ">
+        <div className= {`transition-transform duration-500 flex-col  w-${sidebarsize} h-full rounded-r-lg flex items-center justify-center  bg-white text-primary  bg-opacity-75 `}>
             {renderView()}
         </div> 
     )

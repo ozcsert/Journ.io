@@ -24,7 +24,7 @@ import { MdOutlineFormatItalic } from "react-icons/md";
 import { GrBlockQuote } from 'react-icons/gr'
 
 
-const UpdateTextEditor = ( { onEditorContentChange } ) => {
+const UpdateTextEditor = ( { onEditorContentChange, card } ) => {
  // const [editorContent, setEditorContent] = useState('');
 
   const editor = useEditor({
@@ -37,22 +37,17 @@ const UpdateTextEditor = ( { onEditorContentChange } ) => {
           class: 'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none text-white text-xs',
         },
       },
-    content: `
-      <blockquote>
-        Nothing is impossible, the word itself says “I’m possible!”
-      </blockquote>
-      <p>Audrey Hepburn</p>
-    `,
+    content: card.journ,
     onUpdate: ({ editor }) => {
       const JournContent = editor.getHTML()
-      const journObjectToAdd = {
+      const journObjectToUpdate = {
         title : "",
         journ : JournContent, 
 
       }
       //setEditorContent(JournContent)
-      console.log(journObjectToAdd);
-      onEditorContentChange(journObjectToAdd)
+      console.log(journObjectToUpdate);
+      onEditorContentChange(journObjectToUpdate)
     },
   })
 

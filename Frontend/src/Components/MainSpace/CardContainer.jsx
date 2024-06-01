@@ -6,7 +6,10 @@ import { deleteJourn } from '../../reducers/journCardReducer'
 import '../../cardContainer.css'
 import NewTextEditor from '../NewTextEditor';
 import UpdateTextEditor from '../Card/UpdateTextEditor';
+import SideBarIcon from '../Card/SideBarIcon';
+import {  FaTrash,} from 'react-icons/fa';
 
+import { TfiAngleDoubleLeft } from "react-icons/tfi";
 //import backgroundSvg from '../assets/layered-waves-dense.svg';
 const CardContainer = () => {
   const JournCards = useSelector((state) => state.journCards);
@@ -17,6 +20,14 @@ const CardContainer = () => {
   const [hovered, setHovered] = useState(null)
   const [hoveredCardPosition, setHoveredCardPosition] = useState({ x: 0, y: 0 });
   const [sliderActive, setSliderActive] = useState(false)
+  const [workBarSliderActive, setWorkBarSliderActive] = useState(null)
+
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [sliderPosition, setSliderPosition] = useState(0);
+  const [contentPosition, setContentPosition] = useState(0);
+
+  const [x, setX] = useState(0);
 
   const currentHovered = hovered;
 
@@ -44,7 +55,7 @@ const CardContainer = () => {
       const y =  Math.round(cardRect.top + window.scrollY);
 
         hovered === null ?
-        setHoveredCardPosition({ x, y }) 
+        setHoveredCardPosition({ x, y })
         :
         null
 
@@ -56,13 +67,54 @@ const CardContainer = () => {
         console.log("hovered is " + hovered);
         setLastHovered(currentHovered)
         console.log(x);
-      } 
+      }
   };
+
+  const handleWorkBarSlide = (event, index) => {
+    setWorkBarSliderActive(index)
+    console.log('slide fucntion active');
+    console.log(workBarSliderActive);
+  }
+
+  const resetWorkBarSlide  = () => {
+    setWorkBarSliderActive(null)
+  }
 
   const activateSlider = () => {
       setSliderActive(!sliderActive)
-    
-  } 
+
+  }
+
+  // const handleMouseDown = (event) => {
+  //   console.log("dragging is " + isDragging);
+  //   setIsDragging(true);
+  //   console.log("dragging is " + isDragging);
+  // };
+
+  // const handleMouseUp = () => {
+  //   setIsDragging(false);
+  // };
+
+
+  const handleMouseMove = (event) => {
+    // Calculate how much the mouse has moved left
+    const movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+    const newX = Math.min(Math.max(x + movementX, 0), 12); // Ensure newX stays within [0, 12]
+    setX(newX);
+  };
+
+
+//  const handleMouseMove = (event) => {
+//    if (isDragging) {
+//      const newPosition = event.clientX - sliderPosition;
+//      const maxPosition = 300; // Set maximum slide width
+//      const boundedPosition = Math.max(0, Math.min(maxPosition, newPosition));
+//      console.log('moving');
+//      console.log("newPos is" + newPosition);
+//      setSliderPosition(boundedPosition);
+//      setContentPosition(boundedPosition);
+//    }
+//  };
 
   const HandleDeleteJourn = async (card) => {
       const cardToDelete = await JournCards.find(a => a.id === card.id)
@@ -73,6 +125,8 @@ const CardContainer = () => {
       const zIndex = {
         zIndex: JournCards.length - hovered,
     };
+
+
 
     return (
       <div className="col-span-4 row-span-4 col-start-2 row-start-2" >
@@ -105,11 +159,11 @@ const CardContainer = () => {
       <div className="text-left">12, Sept  hovered{hovered}  lasthovered{lastHovered} current{currentHovered} </div>
       <div className=" flex p-2  h-full overflow-x-auto scrollbar-hide ">
         <div className="flex  flex-nowrap items-start ml-5 mr-10 ">
-          
+
           {JournCards.map((card, index) => {
-            
+
             const hoveredPosition = {
-              left: `${hoveredCardPosition.x - 75}px`, 
+              left: `${hoveredCardPosition.x - 75}px`,
               top: `${hoveredCardPosition.y - 10}px`,
               zIndex: JournCards.length - index,
             };
@@ -117,7 +171,6 @@ const CardContainer = () => {
             const boxShadow = {
               boxShadow: 'rgb(180, 180, 219) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px, rgb(91, 158, 90) 10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(255, 217, 19) 20px -13px',
             };
-
             const hoveredStyle = () => {
               if (hovered !== null & hovered === index) {
                 return `transform transition-transform duration-300 absolute
@@ -130,28 +183,72 @@ const CardContainer = () => {
               }
               else if ( hovered !== null & hovered !==index ) {
                 return `transition-transform duration-1000 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `
-              } 
+              }
             }
+
+            // const SideBarSlideStyle = () => {
+              
+            //     if (workBarSliderActive !== null & workBarSliderActive === index) {
+
+            //       SlideIconSize = 15
+                
+            //       return `transition-size duration-500 size-12`
+            //     } else if (workBarSliderActive === null) {
+            //       SlideIconSize = 0
+            //       return `transition-size duration-500 size-0`
+            //     } else if (hovered !== null & hovered !== index) {
+            //       SlideIconSize = 0
+            //       return `transition-size duration-500 size-0`
+            //     }
+            // }
+            let SlideIconSize = 0;
+            let roundDirection = "r";
+
+            const SideBarSlideStyle = (arg) => {
+              switch (arg) {
+                case 'Handle':
+                  if (workBarSliderActive !== null && workBarSliderActive === index) {
+                    roundDirection = 'l'
+                    return `transition-right duration-500 right-12`;
+                  } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
+                    roundDirection = 'r'
+                    return `transition-right duration-500 right-0`;
+                  }
+                  break;
+                case 'SlideBar':
+                  if (workBarSliderActive !== null && workBarSliderActive === index) {
+                    SlideIconSize = 15;
+                    return `transition-size duration-500 size-12`;
+                  } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
+                    SlideIconSize = 0;
+                    return `transition-size duration-500 size-0`;
+                  }
+                  break;
+                default:
+
+              }
+            };
+            
+
 
             return (
             <>
             {hovered === index && <SpawnPlaceHolder hoveredPosition={hoveredPosition} />}
-            
+
             <div
               key={index}
-              className={` flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m border-black
+              className={`flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m border-black
               bg-third text-primary bg-opacity-75 ${hoveredStyle()}`}
-              
               style= {{...hoveredPosition}}
               //onMouseEnter={(event) => calculateCardPosition(event)}
-              
+
               onMouseLeave={() => handleMouseLeave()}
              // onMouseLeave={handleMouseLeave}
             >
               <main className='grid col-start-1 grid-cols-1 grid-rows-6 rounded-xl bg-third text-primary bg-opacity-75 '>
                 {/* Replace <p> with an editable <div> */}
                 <div
-                  className="w-24 h-full p-2 "
+                  className="w-35 h-full p-2 "
                   onBlur={(e) => {
                     // Handle the onBlur event to update the card content
                     const updatedContent = e.target.innerText;
@@ -160,28 +257,52 @@ const CardContainer = () => {
                     // Example: dispatch an action to update the content in Redux
                   }}
                 >
-                  <UpdateTextEditor />
-                  {card.journ}
+                  <UpdateTextEditor card={card} />
                   {card.date}
-                  
                 </div>
               </main>
-            <aside
-              className=" col-start-5 rounded-r-lg"
+              <div 
+              className={`absolute h-full right-0 ${SideBarSlideStyle('Handle')} `}
+              onMouseEnter={(event) => handleMouseEnter(event, index)}>
+                  <div className={`absolute h-full w-3 right-0 top-0 bg-slate-100 transition-rounded duration-1000 rounded-${roundDirection}-lg`}
+                      // onClick={handleMouseDown}
+                      // onMouseUp={handleMouseUp}
+                      //onMouseDown={handleMouseMove}
+                      
+                      >
+
+                  </div>
+                  <div className='absolute h-20 w-3 right-3 top-14 bg-slate-100 rounded-l-lg  '>
+                  <SideBarIcon  className={' relative flex items-center justify-center mx-auto slide-icon top-7'}  
+                                icon={ <TfiAngleDoubleLeft size={15}
+                                onMouseEnter={(event) => handleWorkBarSlide(event, index)}
+                                />}  
+                  /> 
+                  </div>
+              </div>
+              <aside
+              className={`absolute top-0 right-0 z-10 col-span-1 rounded-r-lg h-full  ${SideBarSlideStyle('SlideBar')}`}
+              onMouseLeave={() => resetWorkBarSlide()}
+            >
+                  <SideBar sidebarsize={`${SlideIconSize}`} index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
+                </aside>
+            {/* <aside
+              className=" absolute  top-0 right-0 z-10 col-span-1 h-full rounded-r-lg"
               onMouseEnter={(event) => handleMouseEnter(event, index)}
               //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
-              
+
                // Unset the hovered card
             >
               <SideBar index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
-            </aside>
+            </aside> */}
             <div className=" absolute h-48 w-36 cardBackground rounded-xl  ml-5 -z-10 -translate-y-3 bg-[rgba(173, 216, 230, 0.7)] backdrop-blur-xl"></div>
             <div className="absolute cardBlur h-3 w-[125px]  -translate-y-3 ml-5 -skew-x-[60deg]"></div>
-            
+
             <div className="absolute cardBlur h-3 w-[125px]  translate-y-[180px] ml-5  -skew-x-[60deg] -z-10"></div>
             <div className="absolute cardBlur w-5 h-[170px] translate-x-[144px] translate-y-[3px] -skew-y-[30deg] "></div>
+
             <div className="absolute cardBlur w-5 h-[170px] translate-y-[3px] -skew-y-[30deg] -z-10 "></div>
-            <div className="absolute corner h-[70px] w-[25px] -translate-y-[64px] translate-x-[185px]  -skew-x-[60deg] skew-y-[20deg]"></div>
+            {/* <div className="absolute corner h-[70px] w-[25px] -translate-y-[64px] translate-x-[185px]  -skew-x-[60deg] skew-y-[20deg]"></div> */}
           </div>
             </>
           )
