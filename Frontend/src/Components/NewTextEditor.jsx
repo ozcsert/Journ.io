@@ -25,7 +25,7 @@ import { GrBlockQuote } from 'react-icons/gr'
 
 const CustomButton = styled(Button)({
     boxShadow: 'none',
-    textTransform: 'none',
+    textTransform: 'none', 
    
     fontSize: 13,
     padding: '6px 12px',

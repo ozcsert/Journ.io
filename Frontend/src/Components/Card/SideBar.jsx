@@ -30,7 +30,7 @@ const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText
         )
     }
     return (
-        <div className= {`transition-transform duration-500 flex-col  w-${sidebarsize} h-full rounded-r-lg flex items-center justify-center  bg-white text-primary  bg-opacity-75 `}>
+        <div className= {`transition-transform  duration-500 flex-col  w-${sidebarsize} h-full rounded-r-lg flex items-center justify-center  bg-white text-primary  bg-opacity-75 `}>
             {renderView()}
         </div> 
     )

@@ -10,6 +10,7 @@ import SideBarIcon from '../Card/SideBarIcon';
 import {  FaTrash,} from 'react-icons/fa';
 
 import { TfiAngleDoubleLeft } from "react-icons/tfi";
+import { PiArrowDownLeftFill } from 'react-icons/pi';
 //import backgroundSvg from '../assets/layered-waves-dense.svg';
 const CardContainer = () => {
   const JournCards = useSelector((state) => state.journCards);
@@ -39,14 +40,16 @@ const CardContainer = () => {
       }, 0);
     if (hovered !== lastHovered) {
     setHovered(null);
+    
         console.log("mouseLeft hovered is " + hovered);
     }
       setTimeout(() => {
         setLastHovered(null);
+        
       }, 3000);
     }
   }
-
+ 
   const handleMouseEnter =  (event, index) => {
     if (sliderActive === false) {
     //calculates the position of the parent element where the mouse cursor is inside
@@ -73,7 +76,7 @@ const CardContainer = () => {
   const handleWorkBarSlide = (event, index) => {
     setWorkBarSliderActive(index)
     console.log('slide fucntion active');
-    console.log(workBarSliderActive);
+    console.log(hovered);
   }
 
   const resetWorkBarSlide  = () => {
@@ -82,7 +85,6 @@ const CardContainer = () => {
 
   const activateSlider = () => {
       setSliderActive(!sliderActive)
-
   }
 
   // const handleMouseDown = (event) => {
@@ -125,9 +127,6 @@ const CardContainer = () => {
       const zIndex = {
         zIndex: JournCards.length - hovered,
     };
-
-
-
     return (
       <div className="col-span-4 row-span-4 col-start-2 row-start-2" >
         <div
@@ -157,157 +156,176 @@ const CardContainer = () => {
   return (
     <div className=" ml-10 mt-10 h-80 ">
       <div className="text-left">12, Sept  hovered{hovered}  lasthovered{lastHovered} current{currentHovered} </div>
-      <div className=" flex p-2  h-full overflow-x-auto scrollbar-hide ">
-        <div className="flex  flex-nowrap items-start ml-5 mr-10 ">
+        <div className=" flex p-2  h-full overflow-x-auto scrollbar-hide ">
+          <div className="flex  flex-nowrap items-start ml-5 mr-10 ">
 
-          {JournCards.map((card, index) => {
+            {JournCards.map((card, index) => {
 
-            const hoveredPosition = {
-              left: `${hoveredCardPosition.x - 75}px`,
-              top: `${hoveredCardPosition.y - 10}px`,
-              zIndex: JournCards.length - index,
-            };
+              const maxX = 500/* maximum value for x */; // we need this right now. It sets, well the max X position. 
+              //const maxY = 240 /* maximum value for y */; // we don't need this right now. 
 
-            const boxShadow = {
-              boxShadow: 'rgb(180, 180, 219) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px, rgb(91, 158, 90) 10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(255, 217, 19) 20px -13px',
-            };
-            const hoveredStyle = () => {
-              if (hovered !== null & hovered === index) {
-                return `transform transition-transform duration-300 absolute
-                translate-x-[30px] skew-y-[0deg] skew-x-[2deg] scale-150 `
-              } else if (hovered !== null) {
-                const translateX = index > hovered ? 'translate-x-0' : 'translate-x-[-150px]';
-                return `transition-transform duration-500 ${translateX} skew-y-[15deg] -mr-[80px] skew-x-[2deg]   `;
-              } else if (hovered === null) {
-                return `transition-transform duration-500 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `;
+              // Calculate adjusted x and y values
+              const adjustedX = Math.min(hoveredCardPosition.x - 140);
+              //const adjustedY = Math.min(hoveredCardPosition.y - 50, maxY); // use this when implementing drag and drop but for now a static value for y positioning is needed.
+
+              const hoveredPosition = {
+                left: `${adjustedX}px`,
+                top: `240px`,
+                zIndex: JournCards.length - index,
+              };
+              // const hoveredPosition = {
+              //   left: `${hoveredCardPosition.x - 140}px`,
+              //   top: `${hoveredCardPosition.y - 50}px`,
+              //   zIndex: JournCards.length - index,
+              // };
+
+              const boxShadow = {
+                boxShadow: 'rgb(180, 180, 219) 0px 0px 0px 2px inset, rgb(192, 226, 240) 10px -5px 0px -3px, rgb(91, 158, 90) 10px -5px, rgb(255, 255, 255) 20px -13px 0px -3px, rgb(255, 217, 19) 20px -13px',
+              };
+              const hoveredStyle = () => {
+                if (hovered !== null & hovered === index) {
+                  return `transform transition-transform duration-300 absolute
+                  translate-x-[30px] skew-y-[0deg] skew-x-[2deg] scale-150 `
+                } else if (hovered !== null) {
+                  const translateX = index > hovered ? 'translate-x-[70px]' : 'translate-x-[-150px]';
+                  return `transition-transform duration-500 ${translateX} skew-y-[15deg] -mr-[80px] skew-x-[2deg]   `;
+                } else if (hovered === null) {
+                  return `transition-transform duration-500 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `;
+                }
+                else if ( hovered !== null & hovered !==index ) {
+                  return `transition-transform duration-1000 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `
+                }
               }
-              else if ( hovered !== null & hovered !==index ) {
-                return `transition-transform duration-1000 translate-x-0 skew-y-[15deg] -mr-[80px] skew-x-[2deg] `
-              }
-            }
 
-            // const SideBarSlideStyle = () => {
-              
-            //     if (workBarSliderActive !== null & workBarSliderActive === index) {
+              //SlideBar Styling
+              let SlideIconSize = 0;
+              let roundDirection = "r";
+              let SlideIconSizeSide = 2;
 
-            //       SlideIconSize = 15
-                
-            //       return `transition-size duration-500 size-12`
-            //     } else if (workBarSliderActive === null) {
-            //       SlideIconSize = 0
-            //       return `transition-size duration-500 size-0`
-            //     } else if (hovered !== null & hovered !== index) {
-            //       SlideIconSize = 0
-            //       return `transition-size duration-500 size-0`
-            //     }
-            // }
-            let SlideIconSize = 0;
-            let roundDirection = "r";
+              const SideBarSlideStyle = (arg) => {
+                switch (arg) {
+                  case 'Handle':
+                    if (workBarSliderActive !== null && workBarSliderActive === index) {
+                      roundDirection = 'l'
+                      return `transition-right duration-1000 right-12`;
+                    } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
+                      roundDirection = 'r'
+                      return `transition-right duration-1000 right-0`;
+                    }
+                    break;
+                  case 'SlideBar':
+                    if (workBarSliderActive !== null && workBarSliderActive === index) {
+                      SlideIconSize = 15;
+                      return `transition-size duration-500 size-12`;
+                    } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
+                      SlideIconSize = 0;
+                      return `transition-size duration-500 size-0 `;
+                    }
+                    break;
+                     case 'Side':
+                       if (workBarSliderActive !== null && workBarSliderActive === index) {
+                         SlideIconSizeSide = 0;
+                         return `transition-size duration-500 size-0 `;
+                       } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
+                         SlideIconSizeSide = 2;
+                         return `transition-size duration-500 size-12 `;
+                       } else if (hovered === null) {
+                         SlideIconSizeSide = 0;
+                         return `transition-size duration-500 size-12`
+                       }
+                     break;
+                  default:
+                }
+              };
 
-            const SideBarSlideStyle = (arg) => {
-              switch (arg) {
-                case 'Handle':
-                  if (workBarSliderActive !== null && workBarSliderActive === index) {
-                    roundDirection = 'l'
-                    return `transition-right duration-500 right-12`;
-                  } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
-                    roundDirection = 'r'
-                    return `transition-right duration-500 right-0`;
-                  }
-                  break;
-                case 'SlideBar':
-                  if (workBarSliderActive !== null && workBarSliderActive === index) {
-                    SlideIconSize = 15;
-                    return `transition-size duration-500 size-12`;
-                  } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
-                    SlideIconSize = 0;
-                    return `transition-size duration-500 size-0`;
-                  }
-                  break;
-                default:
+              return (
+                <>
+                  {hovered === index && <SpawnPlaceHolder hoveredPosition={hoveredPosition} />}
 
-              }
-            };
-            
+                  <div
+                    key={index}
+                    className={`flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m border-black
+                    bg-third text-primary bg-opacity-75 ${hoveredStyle()}`}
+                    style= {{...hoveredPosition}}
+                    //onMouseEnter={(event) => calculateCardPosition(event)}
 
-
-            return (
-            <>
-            {hovered === index && <SpawnPlaceHolder hoveredPosition={hoveredPosition} />}
-
-            <div
-              key={index}
-              className={`flex grid-cols-5 rounded-xl mt-5 h-48 w-36 drop-shadow-m border-black
-              bg-third text-primary bg-opacity-75 ${hoveredStyle()}`}
-              style= {{...hoveredPosition}}
-              //onMouseEnter={(event) => calculateCardPosition(event)}
-
-              onMouseLeave={() => handleMouseLeave()}
-             // onMouseLeave={handleMouseLeave}
-            >
-              <main className='grid col-start-1 grid-cols-1 grid-rows-6 rounded-xl bg-third text-primary bg-opacity-75 '>
-                {/* Replace <p> with an editable <div> */}
-                <div
-                  className="w-35 h-full p-2 "
-                  onBlur={(e) => {
-                    // Handle the onBlur event to update the card content
-                    const updatedContent = e.target.innerText;
-                    // Update the content in your state or Redux store as needed
-                    // You can use the 'index' to identify which card is being edited
-                    // Example: dispatch an action to update the content in Redux
-                  }}
-                >
-                  <UpdateTextEditor card={card} />
-                  {card.date}
-                </div>
-              </main>
-              <div 
-              className={`absolute h-full right-0 ${SideBarSlideStyle('Handle')} `}
-              onMouseEnter={(event) => handleMouseEnter(event, index)}>
-                  <div className={`absolute h-full w-3 right-0 top-0 bg-slate-100 transition-rounded duration-1000 rounded-${roundDirection}-lg`}
-                      // onClick={handleMouseDown}
-                      // onMouseUp={handleMouseUp}
-                      //onMouseDown={handleMouseMove}
-                      
+                    onMouseLeave={() => handleMouseLeave()}
+                   // onMouseLeave={handleMouseLeave}
+                    >
+                    <main className='grid col-start-1 grid-cols-1 grid-rows-6 rounded-xl bg-third text-primary bg-opacity-75 '>
+                      {/* Replace <p> with an editable <div> */}
+                      <div
+                        className="w-35 h-full p-2 "
+                        onBlur={(e) => {
+                          // Handle the onBlur event to update the card content
+                          const updatedContent = e.target.innerText;
+                          // Update the content in your state or Redux store as needed
+                          // You can use the 'index' to identify which card is being edited
+                          // Example: dispatch an action to update the content in Redux
+                        }}
                       >
+                        <UpdateTextEditor card={card} />
+                        {card.date}
+                      </div>
+                    </main>
+                    <div 
+                    className={`absolute h-full right-0 ${SideBarSlideStyle('Handle')} `}
+                    onMouseEnter={(event) => handleMouseEnter(event, index)}>
+                        <div className={`absolute h-full w-3 right-0 top-0 bg-slate-100 transition-rounded duration-1000 rounded-${roundDirection}-lg`}
+                            // onClick={handleMouseDown}
+                            // onMouseUp={handleMouseUp}
+                            //onMouseDown={handleMouseMove}
+                            >
+                            
+                        </div>
+                        <div className='absolute h-20 w-3 right-3 top-14 bg-slate-100 rounded-l-lg  '>
+                        <SideBarIcon  className={' relative flex items-center justify-center mx-auto slide-icon top-7'}  
+                                      icon={ <TfiAngleDoubleLeft size={15}
+                                      onMouseEnter={(event) => handleWorkBarSlide(event, index)}
+                                      />}  
+                        /> 
+                        </div>
+                    </div>
+                    <aside
+                    className={` absolute top-0 right-0 z-10 col-span-1 rounded-r-lg h-full ${SideBarSlideStyle('SlideBar')}`}
+                    onMouseLeave={() => resetWorkBarSlide()}
+                      >
+                        <SideBar sidebarsize={`${SlideIconSize}`} index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
+                      </aside>
+                    {/* <aside
+                      className=" absolute  top-0 right-0 z-10 col-span-1 h-full rounded-r-lg"
+                      onMouseEnter={(event) => handleMouseEnter(event, index)}
+                      //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
+                      
+                     // Unset the hovered card
+                    >
+                      <SideBar index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
+                    </aside> */}
+                    <div className=" absolute h-48 w-36 cardBackground rounded-xl  ml-5 -z-10 -translate-y-3 bg-[rgba(173, 216, 230, 0.7)] backdrop-blur-xl"></div>
+                    <div className="absolute cardBlur h-3 w-[125px]  -translate-y-3 ml-5 -skew-x-[60deg]"></div>
+                  
+                    <div className="absolute cardBlur h-3 w-[125px]  translate-y-[180px] ml-5  -skew-x-[60deg] -z-10"></div>
+                    <div className="absolute cardBlur w-5 h-[170px] translate-x-[144px] translate-y-[3px] -skew-y-[30deg]  ">
+                                  {/* <div
+                      className={`absolute top-0 rounded-r-lg h-full w-full left-0 ${SideBarSlideStyle('Side')}`}
+                  
+                    ><SideBar sidebarsize={`${SlideIconSizeSide}`} hovered={hovered} index={index}  />
+                        </div>
 
+                   */}
+                    </div>
+                    <aside
+                      className={`absolute h-[170px] translate-x-[144px] rounded-r-lg  w-5  translate-y-[3px] -skew-y-[30deg] ${SideBarSlideStyle('Side')}`}
+                  
+                    ><SideBar sidebarsize={`${SlideIconSize}`} index={index}  />
+                        </aside>
+                    <div className="absolute cardBlur w-5 h-[170px] translate-y-[3px] -skew-y-[30deg] -z-10 "></div>
+                    {/* <div className="absolute corner h-[70px] w-[25px] -translate-y-[64px] translate-x-[185px]  -skew-x-[60deg] skew-y-[20deg]"></div> */}
                   </div>
-                  <div className='absolute h-20 w-3 right-3 top-14 bg-slate-100 rounded-l-lg  '>
-                  <SideBarIcon  className={' relative flex items-center justify-center mx-auto slide-icon top-7'}  
-                                icon={ <TfiAngleDoubleLeft size={15}
-                                onMouseEnter={(event) => handleWorkBarSlide(event, index)}
-                                />}  
-                  /> 
-                  </div>
-              </div>
-              <aside
-              className={`absolute top-0 right-0 z-10 col-span-1 rounded-r-lg h-full  ${SideBarSlideStyle('SlideBar')}`}
-              onMouseLeave={() => resetWorkBarSlide()}
-            >
-                  <SideBar sidebarsize={`${SlideIconSize}`} index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
-                </aside>
-            {/* <aside
-              className=" absolute  top-0 right-0 z-10 col-span-1 h-full rounded-r-lg"
-              onMouseEnter={(event) => handleMouseEnter(event, index)}
-              //onMouseEnter={() => hoverCardHandle(index) } // Set the hovered card
-
-               // Unset the hovered card
-            >
-              <SideBar index={index} hovered={hovered} onClick1={activateSlider} onClick2={() => HandleDeleteJourn(card)} />
-            </aside> */}
-            <div className=" absolute h-48 w-36 cardBackground rounded-xl  ml-5 -z-10 -translate-y-3 bg-[rgba(173, 216, 230, 0.7)] backdrop-blur-xl"></div>
-            <div className="absolute cardBlur h-3 w-[125px]  -translate-y-3 ml-5 -skew-x-[60deg]"></div>
-
-            <div className="absolute cardBlur h-3 w-[125px]  translate-y-[180px] ml-5  -skew-x-[60deg] -z-10"></div>
-            <div className="absolute cardBlur w-5 h-[170px] translate-x-[144px] translate-y-[3px] -skew-y-[30deg] "></div>
-
-            <div className="absolute cardBlur w-5 h-[170px] translate-y-[3px] -skew-y-[30deg] -z-10 "></div>
-            {/* <div className="absolute corner h-[70px] w-[25px] -translate-y-[64px] translate-x-[185px]  -skew-x-[60deg] skew-y-[20deg]"></div> */}
-          </div>
-            </>
-          )
-          })}
-          <div className="flex-none w-64 p-4">
+                </>
+              )
+            })}
+          <div className="flex-none w-64 p-4 " >
           </div>
         </div>
       </div>
