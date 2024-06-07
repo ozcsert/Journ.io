@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createJourn } from '../../reducers/journCardReducer'
 import { useDispatch } from 'react-redux'
 import SideBarIcon from "../Card/SideBarIcon"
@@ -26,12 +26,14 @@ const MainSideBar = ( onClick  ) => {
         console.log(editorContent);
     }
 
-    const HandleAddJourn = async  () => {
-        console.log(editorContent);
-            
-            await dispatch(createJourn(editorContent))
-            setTextArea(false)
-    } 
+ const HandleAddJourn = async  () => {
+     console.log(editorContent);      
+         await dispatch(createJourn(editorContent))
+         setTextArea(false)
+ } 
+
+
+
         
     const renderView = () => {
             if (textArea === false)  { 
