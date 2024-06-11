@@ -9,10 +9,12 @@ import { PiArrowFatLinesRightBold } from 'react-icons/pi';
 
 const SideBar = ( { index, hovered, onClick1, onClick2, className, classNameText, sidebarsize } ) => {
     //const sidebarsize = 12
-    const iconsize = ` transition-size duration-500 size-${sidebarsize*2}`
-    const sidebarSize= ` transition-size duration-500 size-${sidebarsize}`
+    const sidebarSize= ` transition-all duration-500 w-${sidebarsize} `
+
+    const iconsize = ` transition-all duration-500 w-${sidebarsize*2}`
 
     const renderView = () => {
+        console.log(sidebarSize);
         if (hovered === index) {
             return (
                 <div>

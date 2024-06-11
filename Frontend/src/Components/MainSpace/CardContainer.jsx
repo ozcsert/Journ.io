@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SideBar from '../Card/SideBar';
-import "../../styles.css"
+
 import { deleteJourn } from '../../reducers/journCardReducer'
 import '../../cardContainer.css'
 import NewTextEditor from '../NewTextEditor';
@@ -36,7 +36,7 @@ const CardContainer = () => {
   const currentHovered = hovered;
 
   const handleMouseLeave = () => {
-    event.stopPropagation()
+    
     if (sliderActive === false) {
       setTimeout(() => {
         // Check if the current hovered value is still the same as when the timeout was set
@@ -78,9 +78,6 @@ const CardContainer = () => {
        }
    };
 
-
-  
-
   const handleWorkBarSlide = (event, index) => {
     event.stopPropagation()
     setWorkBarSliderActive(index)
@@ -89,7 +86,7 @@ const CardContainer = () => {
   }
 
   const resetWorkBarSlide  = () => {
-    event.stopPropagation()
+    
     setWorkBarSliderActive(null)
   }
 
@@ -211,6 +208,7 @@ const CardContainer = () => {
                let SlideIconSize = 0;
                let roundDirection = "r";
                let SlideIconSizeSide = 2;
+
                const SideBarSlideStyle = (arg) => {
                  switch (arg) {
                    case 'Handle':
@@ -225,22 +223,27 @@ const CardContainer = () => {
                    case 'SlideBar':
                      if (workBarSliderActive !== null && workBarSliderActive === index) {
                         SlideIconSize = 15;
-                       return `transition-size duration-500 w-9 `;
+                        console.log("SlideIconSize is " + SlideIconSize);
+                       return `transition-all duration-500 w-9 `;
                      } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
                         SlideIconSize = 0;
-                       return `transition-size duration-500 w-0  `;
-                     }
+                       return `transition-all duration-500 w-0  `;
+                     } else if (hovered === null) {
+                      SlideIconSize = 0;
+                      return `transition-all duration-500 w-0`
+                    }
                      break;
                       case 'Side':
                         if (workBarSliderActive !== null && workBarSliderActive === index) {
                           SlideIconSizeSide = 0;
-                          return `transition-size duration-500  w-0 `;
+                          
+                          return `transition-all duration-500  w-0 `;
                         } else if (workBarSliderActive === null || (hovered !== null && hovered !== index)) {
                           SlideIconSizeSide = 2;
-                          return `transition-size duration-500  w-5 `;
+                          return `transition-all duration-500  w-5 `;
                         } else if (hovered === null) {
                           SlideIconSizeSide = 2;
-                          return `transition-size duration-500 w-5`
+                          return `transition-all duration-500 w-5`
                         }
                       break;
                    default:
@@ -312,7 +315,7 @@ const CardContainer = () => {
 
                     <div className='relative '>
                     <div className="absolute cardBlur w-5 h-[170px]  -skew-y-[30deg]  "></div>
-                      <aside className={` ${SideBarSlideStyle('Side')} absolute h-[170px]  rounded-r-lg    -skew-y-[30deg] z-[-1] `}>
+                      <aside className={` ${SideBarSlideStyle('Side')} absolute h-[170px]  rounded-r-lg -skew-y-[30deg] z-[-1] `}>
                         <SideBar sidebarsize={`${SlideIconSizeSide}`} index={index}  />
                       </aside>
                       </div>
