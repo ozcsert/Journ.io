@@ -1,0 +1,60 @@
+---
+import Section from "../Section.astro";
+import { Icon } from "astro-icon/components";
+import { projects } from "../../../const/projects.js";
+import { Image } from "astro:assets";
+import Project from "../sections/projects/Project.astro";
+---
+
+<Section className={Astro.props.className} title="Projects">
+  <ul class="project-container">
+    {
+      projects.map(
+        ({ description, img, link, technologies, title, github }) => (
+          <Project
+            img={img}
+            description={description}
+            link={link}
+            title={title}
+            technologies={technologies}
+            github={github}
+          />
+        ),
+      )
+    }
+  </ul>
+</Section>
+<script>
+  import { Fancybox } from "@fancyapps/ui";
+  Fancybox.bind('[data-fancybox="projects"]', { hideScrollbar: false });
+</script>
+
+<style>
+  .project-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  ul {
+    @apply ml-4 list-disc space-y-1;
+    li {
+      @apply text-skin-muted;
+    }
+  }
+
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.6rem;
+  }
+
+  footer span {
+    border-radius: 6px;
+    background: #eee;
+    color: #444;
+    font-size: 0.6rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+  }
+</style>

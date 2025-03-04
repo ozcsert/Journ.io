@@ -1,0 +1,184 @@
+---
+import { getIconComponent } from "../../../../public/icons/IconAll.astro";
+
+type Technology = {
+  icon?: string;
+};
+
+export interface Props {
+  title: string;
+  img: string;
+  description: string;
+  technologies?: Technology[];
+  link: string;
+  github: string;
+}
+
+const { technologies, title, img, description, link, github } = Astro.props;
+---
+
+<li class="li-project group">
+  <span class="hover-outline"></span>
+  <div class="content-container">
+    <img src={img} alt={title} loading="lazy" />
+    <p class="title-project">{title}</p>
+    <p class="description-project">{description}</p>
+    <p class="title-technologies">Tech Stack</p>
+    <div class="container-technologies">
+      {
+        technologies &&
+          technologies.map(({ icon }) => {
+            const IconComponent = getIconComponent(icon);
+            return <i>{IconComponent && <IconComponent />}</i>;
+          })
+      }
+    </div>
+    <div class="cta-container">
+      {
+        link && (
+          <div class="container-link-project">
+            <a href={link} target="_blank">
+              Live
+            </a>
+          </div>
+        )
+      }
+
+      <div class="container-link-project">
+        <a href={github} target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</li>
+
+<style>
+  .li-project {
+    position: relative;
+    list-style: none;
+    border: 1px solid #3d3e4f;
+    flex: 1 1 45%;
+    min-width: 45%;
+    border-radius: 7px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: grab;
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .li-project img {
+    position: relative;
+    display: block;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: left top;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .hover-outline {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px dashed #f97316;
+    border-radius: 7px;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .li-project:hover .hover-outline {
+    opacity: 1;
+  }
+
+  .content-container {
+    padding: 10px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    border: 1px solid #dd9032;
+    background-color: #3d3e4f64;
+    transition: transform 0.3s;
+    z-index: 1;
+  }
+
+  .li-project:hover .content-container {
+    transform: translate(-8px, -8px);
+  }
+
+  .title-project {
+    color: #f6f6f9;
+    padding: 10px 20px;
+    font-size: 25px;
+    font-weight: 700;
+  }
+
+  .title-technologies {
+    color: #f6f6f9;
+    font-size: 20px;
+    padding: 5px 15px;
+  }
+
+  .description-project {
+    padding: 0 20px;
+    color: #f6f6f990;
+    font-size: 17px;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .container-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 10px 20px;
+    color: white;
+  }
+
+  .container-technologies i {
+    width: 30px;
+  }
+
+  .cta-container {
+    display: flex;
+    gap: 10px;
+  }
+  .container-link-project {
+    flex: 1;
+    background-color: #01be96;
+    padding: 5px 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .container-link-project a {
+    text-decoration: none;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    color: #f6f6f9;
+  }
+
+  .container-link-project:hover {
+    scale: 1.1;
+    background-color: #dd9032;
+
+    transform: translate(-8px, -8px);
+  }
+</style>
